@@ -65,11 +65,11 @@ private void addToken(TokenType type, Object literal) {
 
 private void scanToken(){
     char c = advance();
-    switch (c){
+    switch (c) {
         case '(': addToken(LEFT_PAREN); break;
         case ')': addToken(RIGHT_PAREN); break;
-        case '{': addToken(RIGHT_BRACE); break;
-        case '}': addToken(LEFT_BRACE); break;
+        case '{': addToken(LEFT_BRACE); break;
+        case '}': addToken(RIGHT_BRACE); break;
         case ',': addToken(COMMA); break;
         case '.': addToken(DOT); break;
         case '-': addToken(MINUS); break;

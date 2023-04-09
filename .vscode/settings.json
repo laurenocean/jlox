@@ -1,0 +1,3 @@
+{
+    "java.debug.settings.stepping.skipClasses": ["$JDK", "org.junit.*", "junit.*", "java.util.*"]
+}
