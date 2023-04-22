@@ -23,7 +23,8 @@ public class GenerateAst {
             "Expression : Expr expression",
             "If         : Expr condition, Stmt thenBranch," +
                         " Stmt elseBranch",
-            "Print  : Expr expression:",
+            "Print  : Expr expression",
+            "Break  : ",
             "While  : Expr condition, Stmt body",
             "Var    : Token name, Expr initializer"
         ));
@@ -75,19 +76,25 @@ public class GenerateAst {
 
         writer.println("    " + className + " (" + fieldList + ") {");
 
+        boolean haveFields = (fieldList.equals("")==false);
         String[] fields = fieldList.split(", ");
-        for (String field : fields) {
-            String name = field.split(" ")[1];
-            writer.println("      this." + name + " = " + name + ";");
+        
+        if (haveFields){
+            for (String field : fields) {
+                String name = field.split(" ")[1];
+                writer.println("      this." + name + " = " + name + ";");
+            }
         }
 
         writer.println ("    }");
-
-        writer.println();
-        for (String field : fields) {
-            writer.println("    final " + field + ";");
+    
+        if (haveFields) {
+            writer.println();
+            for (String field : fields) {
+                writer.println("    final " + field + ";");
+            }
         }
-
+        
         writer.println();
         writer.println("    @Override");
         writer.println("    <R> R accept (Visitor<R> visitor) {");

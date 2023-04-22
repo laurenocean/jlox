@@ -3,6 +3,8 @@ package com.craftinginterpreters.lox;
 import java.util.List;
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
+    class BreakException extends RuntimeException {}
+
     private Environment environment = new Environment();
 
     void interpret(List<Stmt> statements) {
@@ -22,7 +24,12 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
-    public void visitIfStmt(Stmt.If stmt) {
+    public Void visitBreakStmt(Stmt.Break stmt) {
+        throw new BreakException();
+    }
+
+    @Override
+    public Void visitIfStmt(Stmt.If stmt) {
         if (isTruthy(evaluate(stmt.condition))) {
         execute(stmt.thenBranch);
         } else if (stmt.elseBranch != null) {
@@ -74,7 +81,13 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Void visitWhileStmt(Stmt.While stmt) {
         while (isTruthy(evaluate(stmt.condition))) {
-            execute(stmt.body);
+            try {
+                execute(stmt.body);
+            }
+            catch (BreakException e) {
+                break;
+             }
+            
         }
         return null;
     }
