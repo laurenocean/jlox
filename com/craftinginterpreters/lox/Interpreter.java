@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
@@ -142,7 +141,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitVarStmt(Stmt.Var stmt) {
-        Object value = new Character('a'); 
+        Object value = null; 
         if (stmt.initializer != null) {
             value = evaluate(stmt.initializer);
         }
@@ -261,7 +260,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                     return (double)left + (double)right;
                 }
 
-                if (left instanceof String && left instanceof String) {
+                if (left instanceof String && right instanceof String) {
                     return (String)left + (String)right;
                 }
 
@@ -316,6 +315,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             case BANG:
                 return !isTruthy(right);
             case MINUS:
+                checkNumberOperand(expr.operator, right);
                 return -(double)right;
         }
         return null;

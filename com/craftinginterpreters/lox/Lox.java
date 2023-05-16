@@ -21,7 +21,7 @@ public class Lox {
             runFile(args[0]);
         } else {
             //runPrompt ();
-            runFile("/Users/laurenocean/hpw/jlox/test.lox");
+            runFile("test.lox");
         }
     }
 

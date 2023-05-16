@@ -143,7 +143,7 @@ private void string() {
     }
 
     if (isAtEnd()) {
-        Lox.error(line, "unterminated string.");
+        Lox.error(line, "Unterminated string.");
         return;
     }
 
@@ -173,7 +173,7 @@ private boolean isAtEnd() {
 }
 
 private char peekNext() {
-    if (current + 1 <= source.length()) return '\0';
+    if (current + 1 >= source.length()) return '\0';
     return source.charAt(current+1);
 }
 private boolean isAlpha(char c){

@@ -38,7 +38,7 @@ public Object call(Interpreter interpreter, List<Object> arguments) {
 
 @Override
 public String toString() {
-    return "<fn" + declaration.name.lexeme + ">";
+    return "<fn " + declaration.name.lexeme + ">";
 }
 
 @Override
