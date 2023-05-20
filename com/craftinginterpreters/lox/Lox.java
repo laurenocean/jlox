@@ -24,6 +24,24 @@ public class Lox {
             runFile("test.lox");
         }
     }
+    public static List<Stmt> getStatements(String source) {
+        Scanner scanner = new Scanner(source);
+        List<Token> tokens = scanner.scanTokens();
+        Parser parser = new Parser(tokens);
+        List<Stmt> statements = parser.parse();
+
+        // Stop if there was a syntax error.
+        if (hadError) return null;
+
+        Resolver resolver = new Resolver(interpreter);
+        resolver.resolve(statements);
+
+        // Stop if there was a resolution error.
+        if (hadError) return null;
+
+        return statements;
+    }
+        
 
     private static void runFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path));
@@ -63,7 +81,7 @@ public class Lox {
     static void error(int line, String message) {
         report(line, "", message);
     }
-    
+
     static void runtimeError(RuntimeError error) {
         System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
         hadRuntimeError = true;

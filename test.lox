@@ -1,14 +1,9 @@
-class Donut { 
-    cook() {
-        print "Fry until golden brown.";
-    }
+fun addPair(a, b) {
+  return a + b;
 }
 
-class BostonCream < Donut {
-    cook() {
-        super.cook();
-        print "Pipe full of custard and coat with chocolate.";
-    }
+fun identity2(a) {
+  return a;
 }
+print identity2(addPair)(1, 2); // Prints "3".
 
-BostonCream().cook();

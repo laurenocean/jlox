@@ -1,3 +1,9 @@
 {
-    "java.debug.settings.stepping.skipClasses": ["$JDK", "org.junit.*", "junit.*", "java.util.*"]
+    "java.debug.settings.stepping.skipClasses": [
+        "$JDK",
+        "org.junit.*",
+        "junit.*",
+        "java.util.*"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
